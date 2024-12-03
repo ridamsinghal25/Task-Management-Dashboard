@@ -1,12 +1,21 @@
-import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import TaskDashboard from "@/pages/TaskDashboard";
+import TaskDetailPage from "@/pages/TaskDetailPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl bg-green-500 font-bold underline">
-        Hello world!
-      </h1>
-    </div>
+    <BrowserRouter>
+      <main className="container mx-auto p-4">
+        <h1 className="text-4xl font-bold mb-8">Task Management Dashboard</h1>
+        <Routes>
+          <Route path="/tasks" element={<TaskDashboard />} />
+          <Route path="/tasks/:id" element={<TaskDetailPage />} />
+
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 
