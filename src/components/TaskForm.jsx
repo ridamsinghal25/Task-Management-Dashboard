@@ -60,6 +60,7 @@ export default function TaskForm({ task, onClose }) {
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
             required
+            min={new Date().toISOString().split("T")[0]}
           />
           <DialogFooter>
             <Button type="submit">{task ? "Update" : "Add"} Task</Button>
