@@ -9,30 +9,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Clock, Edit, Trash } from "lucide-react";
-import TaskForm from "@/components/TaskForm";
-import DeleteConfirmation from "@/components/DeleteTask";
-import { toggleTaskStatus, deleteTask } from "@/store/TaskSlice";
+import { Clock, Edit, MoveRight } from "lucide-react";
+import { toggleTaskStatus } from "@/store/TaskSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function TaskItem({ task }) {
   const dispatch = useDispatch();
-  const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     dispatch(toggleTaskStatus(task.id));
   };
 
-  const handleDelete = () => {
-    dispatch(deleteTask(task.id));
-  };
+  const isTaskOverdue =
+    new Date(task.dueDate)?.setHours(0, 0, 0, 0) <
+    new Date()?.setHours(0, 0, 0, 0);
 
   return (
-    <Card
-      className={`${
-        new Date(task.dueDate) < new Date() ? "border-red-500 border-2" : ""
-      }`}
-    >
+    <Card className={`${isTaskOverdue ? "border-red-500 border-2" : ""}`}>
       <CardHeader className="mt-2">
         <CardTitle className="flex items-center gap-2">
           <div className="w-full flex items-center justify-between">
@@ -40,9 +34,10 @@ export default function TaskItem({ task }) {
               <Checkbox
                 checked={task.completed}
                 onCheckedChange={handleToggle}
+                className="data-[state=checked]:bg-green-500 data-[state=checked]:border-green-500"
               />
               <span
-                className={task.completed ? "line-through text-gray-500" : ""}
+                className={task.completed ? "line-through text-green-500" : ""}
               >
                 {task.title}
               </span>
@@ -52,33 +47,18 @@ export default function TaskItem({ task }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p>{task.description}</p>
+        <p className={task.completed ? "line-through text-green-500" : ""}>
+          {task.description}
+        </p>
       </CardContent>
       <CardFooter className="flex justify-end gap-2">
         <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setIsEditing(true)}
+          onClick={() => navigate(`/tasks/${task.id}`)}
+          className="cursor-pointer"
         >
-          <Edit className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setIsDeleting(true)}
-        >
-          <Trash className="h-4 w-4" />
+          <MoveRight />
         </Button>
       </CardFooter>
-      {isEditing && (
-        <TaskForm task={task} onClose={() => setIsEditing(false)} />
-      )}
-      {isDeleting && (
-        <DeleteConfirmation
-          onConfirm={handleDelete}
-          onCancel={() => setIsDeleting(false)}
-        />
-      )}
     </Card>
   );
 }
