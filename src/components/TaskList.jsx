@@ -7,12 +7,19 @@ export default function TaskList({ filter, searchQuery }) {
 
   const TaskItemOverDueLabel = withOverDueLabel(TaskItem);
 
+  const isTaskOverdue = (task) => {
+    return (
+      new Date(task.dueDate)?.setHours(0, 0, 0, 0) <
+      new Date()?.setHours(0, 0, 0, 0)
+    );
+  };
+
   const filteredTasks = tasks
     .filter((task) => {
       if (filter === "completed") return task.completed;
       else if (filter === "pending") return !task.completed;
       else if (filter === "overdue")
-        return new Date(task.dueDate) < new Date() && !task.completed;
+        return isTaskOverdue(task) && !task.completed;
       return true;
     })
     .filter((task) =>
@@ -23,7 +30,7 @@ export default function TaskList({ filter, searchQuery }) {
     <div className="space-y-4">
       {filteredTasks.length > 0 ? (
         filteredTasks.map((task) => {
-          return new Date(task.dueDate) < new Date() ? (
+          return isTaskOverdue(task) ? (
             <TaskItemOverDueLabel key={task.id} task={task} />
           ) : (
             <TaskItem key={task.id} task={task} />
