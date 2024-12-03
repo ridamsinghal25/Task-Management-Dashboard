@@ -1,8 +1,85 @@
-# React + Vite
+# Task Management Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+The **Task Management Dashboard** is a web application designed to efficiently manage tasks. It allows users to create, edit, delete, and filter tasks, with features like marking tasks as completed and filtering by task status. The app uses **Redux** for state management and incorporates a responsive and user-friendly UI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+
+## Features
+
+### Task Functionality:
+
+- **Add Task**: Users can add tasks with a title, description, and due date.
+- **Edit Task**: Users can update task details.
+- **Delete Task**: Users can remove tasks permanently.
+- **Mark as Completed**: Tasks can be marked as completed once done.
+
+### Task Filters:
+
+- View tasks by status:
+  - **All Tasks**
+  - **Completed Tasks**
+  - **Pending Tasks**
+  - **Overdue Tasks**: Tasks with a due date earlier than the current date.
+
+### Additional Features:
+
+- **Search**: Find tasks by title.
+- **Delete Confirmation**: Displays a modal before confirming task deletion.
+
+---
+
+## Technologies Used
+
+- **Frontend**: React.js, Redux
+- **UI Library**: Shadcn/ui
+- **State Management**: Redux
+- **Styling**: Styled-components and TailwindCSS
+
+---
+
+## Installation Instructions
+
+### Prerequisites:
+
+- Node.js (v14 or later)
+- npm or yarn
+
+### Steps:
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone <repository-url>
+   cd task-management-dashboard
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+   Or, if you use yarn:
+
+   ```bash
+   yarn install
+   ```
+
+3. **Start the development server**:
+
+   ```bash
+   npm run dev
+   ```
+
+   Or, if you use yarn:
+
+   ```bash
+   yarn dev
+   ```
+
+4. **Open your browser and navigate to:**
+   ```bash
+   http://localhost:5173/tasks
+   ```
